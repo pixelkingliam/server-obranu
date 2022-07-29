@@ -1,0 +1,10 @@
+{
+    "Data" : {
+        "id" : "BulletAP",
+        "Type" : "Bullet",
+        "Value" : 4,
+        "Weight" : 2,
+        "Penetration" : 30,
+        "Damage" : 15
+    }
+}

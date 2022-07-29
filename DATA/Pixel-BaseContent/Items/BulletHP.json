@@ -1,0 +1,10 @@
+{
+    "Data" : {
+        "id" : "BulletHP",
+        "Type" : "Bullet",
+        "Value" : 3,
+        "Weight" : 1,
+        "Penetration" : 15,
+        "Damage" : 30
+    }
+}

@@ -1,0 +1,78 @@
+
+{ 
+
+    "stash" : 
+    {
+        "stashlevel" : 1,
+        "items" : [
+            {
+                "id" : "Gun",
+                "Slots" : {
+                    "Magazine" : {
+                        "id" : "Magazine",
+                        "LoadAmmo" : {
+                            "0" : {
+                                "id" : "BulletHP",
+                                "Count" : 10
+                            },
+                            "1" : {
+                                "id" : "BulletAP",
+                                "Count" : 10
+                            },
+                            "2" : {
+                                "id" : "BulletFMJ",
+                                "Count" : 10
+                            }
+                        }
+                    }
+                }
+            },
+            {
+                "id" : "BulletFMJ",
+                "Count" : 120
+            },
+            {
+                "id" : "Magazine",
+                "LoadAmmo" : {
+                    "0" : {
+                        "id" : "BulletHP",
+                        "Count" : 30
+                    }
+                }
+            },
+            {
+                "id" : "Magazine",
+                "LoadAmmo" : {
+                    "0" : {
+                        "id" : "BulletAP",
+                        "Count" : 30
+                    }
+                }
+            },
+            {
+                "id" : "Magazine",
+                "LoadAmmo" : {
+                    "0" : {
+                        "id" : "BulletFMJ",
+                        "Count" : 30
+                    }
+                }
+            }
+        ]
+    },
+    "gear" : {
+        "Primary" : {},
+        "Secondary" : {},
+        "Holster" : {},
+        "Melee" : {},
+        "Bag" : {},
+        "Rig" : {},
+        "Pouch" : {}
+        },
+    "trading" : {
+        "offers" : [],
+        "maxoffers" : 3
+    },
+    "unlocks" : {}
+
+}

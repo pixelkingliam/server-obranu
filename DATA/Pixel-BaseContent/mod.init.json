@@ -1,0 +1,24 @@
+{
+    "ModInfo" : {
+        "Author" : "Pixel",
+        "Name" : "BaseContent",
+        "Version" : "1.0",
+        "Desc" : "Base Content for Obranu/Napad"
+    },
+    "Content" : {
+        "Hasprofiles" : false,
+        "Hassounds" : true,
+        "Hasitems" : true
+
+    },
+    "ItemsNames" : [
+        "Gun",
+        "Magazine",
+        "BulletAP",
+        "BulletFMJ",
+        "BulletHP"
+    ],
+    "SoundsNames" : [
+        "762x39"
+    ]
+}

@@ -1,0 +1,36 @@
+{
+    "Data" : {
+        "id" : "Magazine",
+        "Value" : 200,
+        "Type" : "Mod_Magazine",
+        "SupportedAmmoTags" : 
+        [
+            "BulletAmmo"
+        ],
+        "HasTags" : 
+        [
+            "MagazineBullet"
+        ],
+        "MaxCount" : 30,
+        "Spacetaken" : 2
+    },
+    "Locales" :
+    {
+        "En" :
+        {
+            "Gun" : {
+                "Name" : "Test Magazine",
+                "Shortname" : "Tst. Mg.",
+                "Description" : "This is a magazine for testing the client's magazine functions"
+            }
+        },
+        "Ro" :
+        {
+            "Gun" : {
+                "Name" : "Test gun",
+                "Shortname" : "Tst. Mg.",
+                "Description" : "This is a magazine for testing the server's and the client's language features"
+            }
+        }
+    }
+}
