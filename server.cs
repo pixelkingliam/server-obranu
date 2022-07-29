@@ -12,36 +12,32 @@ using System.Text.RegularExpressions;
 //fancy using namespace 
 public class Launch 
 {
-    
     public static double Time = ((Convert.ToDouble(DateTimeOffset.Now.ToUnixTimeMilliseconds())+5) / (1000));
-    
-
-
 }
 public class Hash
 {
     public static string HashString(string text, string salt = "")
-{
-    if (String.IsNullOrEmpty(text))
     {
-        return String.Empty;
-    }
+        if (String.IsNullOrEmpty(text))
+        {
+            return String.Empty;
+        }
     
-    // Uses SHA256 to create the hash
-    using (var sha = new System.Security.Cryptography.SHA256Managed())
-    {
-        // Convert the string to a byte array first, to be processed
-        byte[] textBytes = System.Text.Encoding.UTF8.GetBytes(text + salt);
-        byte[] hashBytes = sha.ComputeHash(textBytes);
+        // Uses SHA256 to create the hash
+        using (var sha = new System.Security.Cryptography.SHA256Managed())
+        {
+            // Convert the string to a byte array first, to be processed
+            byte[] textBytes = System.Text.Encoding.UTF8.GetBytes(text + salt);
+            byte[] hashBytes = sha.ComputeHash(textBytes);
         
         // Convert back to a string, removing the '-' that BitConverter adds
-        string hash = BitConverter
-            .ToString(hashBytes)
-            .Replace("-", String.Empty);
+            string hash = BitConverter
+                .ToString(hashBytes)
+                .Replace("-", String.Empty);
 
-        return hash;
+            return hash;
+        }
     }
-}
 }
 public class Logger
     {
@@ -131,9 +127,6 @@ public class Account
         public string username = null;
         public string password = null;
     }
-    
-
-
 // login class handles all received json packets from a client,
 public class Connect
 { 
@@ -195,7 +188,8 @@ public class Connect
         )
         {
             Logger.Success("Test Passed for existing");
-        }else{
+        }else
+        {
             Logger.Warning("Client failed to login");
         }
     }
@@ -232,7 +226,8 @@ public class Cache
                     Environment.Exit(1);
                     
                 }
-            }else{
+            }else
+            {
                 Logger.Warning(item + " is a folder in DATA/ but does not contain a mod.init.json.");
             }
         }
@@ -246,11 +241,13 @@ public class Cache
         File.Delete(fileName);
         File.WriteAllText(fileName, "{\n\n}");
         JObject jsonprofiles = JObject.Parse(System.IO.File.ReadAllText(@"TEMP/Profiles.json"));
+
         foreach (string item2 in datalist)
         {
             JObject jsonmod = JObject.Parse(System.IO.File.ReadAllText(item + "/Profiles/" + item2 + ".json"));
             jsonprofiles[item2] = jsonmod;
         }
+
         File.WriteAllText(@"TEMP/Profiles.json", jsonprofiles.ToString());
     }
     //this loads all the items to TEMP/, those items will be sent to the client
@@ -271,49 +268,42 @@ public class Cache
     }
     public static void Clean()
     {
-        try
-        {
+        
         System.IO.DirectoryInfo directory = new System.IO.DirectoryInfo(@"TEMP/");
         if (directory.Exists)
         {
-        foreach(System.IO.FileInfo file in directory.GetFiles()) file.Delete(); 
-        foreach(System.IO.DirectoryInfo subDirectory in directory.GetDirectories()) subDirectory.Delete(true);
+            foreach(System.IO.FileInfo file in directory.GetFiles()) file.Delete(); 
+            foreach(System.IO.DirectoryInfo subDirectory in directory.GetDirectories()) subDirectory.Delete(true);
         }
         Directory.CreateDirectory("TEMP");
         Logger.Success("Cleaned temporary files folder");
-        }
-        catch (Exception ex)
-        {
-            Logger.Error("Failed to delete temporary files (./TEMP/)");
-            Logger.Error(ex.Message);
-            Console.Read();
-            Environment.Exit(1);
-        }
     }
+        
 }
-    class Server
+class Server
 {
     public static void Main(string[] args)
     { 
         try {
-        JObject jsonserverconf = JObject.Parse(System.IO.File.ReadAllText(@"CONF/server.json"));
-        string ip = (string)jsonserverconf.SelectToken("server-configs.ip");
-        ushort port = (ushort)jsonserverconf.SelectToken("server-configs.port");
-        Logger.Clean((int)jsonserverconf.SelectToken("server-configs.logcount"));
-        Cache.Clean();
-        Cache.LoadMods();
+            JObject jsonserverconf = JObject.Parse(System.IO.File.ReadAllText(@"CONF/server.json"));
+            string ip = (string)jsonserverconf.SelectToken("server-configs.ip");
+            ushort port = (ushort)jsonserverconf.SelectToken("server-configs.port");
+            Logger.Clean((int)jsonserverconf.SelectToken("server-configs.logcount"));
+            Cache.Clean();
+            Cache.LoadMods();
 
-        Logger.Info(@"     /\ \                                     ");                                     
-        Logger.Info(@"  ___\ \ \____  _ __    __      ___   __  __  ");
-        Logger.Info(@" / __`\ \ '__`\/\`'__\/'__`\  /' _ `\/\ \/\ \ ");
-        Logger.Info(@"/\ \L\ \ \ \L\ \ \ \//\ \L\.\_/\ \/\ \ \ \_\ \");
-        Logger.Info(@"\ \____/\ \_,__/\ \_\\ \__/.\_\ \_\ \_\ \____/");
-        Logger.Info(@" \/___/  \/___/  \/_/ \/__/\/_/\/_/\/_/\/___/ ");
+            Logger.Info(@"     /\ \                                     ");                                     
+            Logger.Info(@"  ___\ \ \____  _ __    __      ___   __  __  ");
+            Logger.Info(@" / __`\ \ '__`\/\`'__\/'__`\  /' _ `\/\ \/\ \ ");
+            Logger.Info(@"/\ \L\ \ \ \L\ \ \ \//\ \L\.\_/\ \/\ \ \ \_\ \");
+            Logger.Info(@"\ \____/\ \_,__/\ \_\\ \__/.\_\ \_\ \_\ \____/");
+            Logger.Info(@" \/___/  \/___/  \/_/ \/__/\/_/\/_/\/_/\/___/ ");
         
-        Logger.Success("Server is hopefully running on " + ip + ":" + port + " in the future");
-        Console.ReadLine();
+            Logger.Success("Server is hopefully running on " + ip + ":" + port + " in the future");
+            Console.ReadLine();
         }
-        catch (Exception ex){
+        catch (Exception ex)
+        {
             Logger.Error(ex.Message);
             Console.Read();
             Environment.Exit(1);

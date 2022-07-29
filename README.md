@@ -21,7 +21,7 @@ folders in  *italics* dont need to present for the server to work as the server 
 
 ###### Compile
 
-`csc server.cs -r:Newtonsoft.Json.dll`
+`$ csc server.cs -r:Newtonsoft.Json.dll`
 
 ###### Execute
 
