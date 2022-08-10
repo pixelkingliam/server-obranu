@@ -9,14 +9,13 @@
         "Hasprofiles" : false,
         "Hassounds" : true,
         "Hasitems" : true
-
     },
     "ItemsNames" : [
-        "Gun",
+        "VaschenBAR57",
         "Magazine",
-        "BulletAP",
-        "BulletFMJ",
-        "BulletHP"
+        "762x39mmAP",
+        "762x39mmFMJ",
+        "762x39mmHP"
     ],
     "SoundsNames" : [
         "762x39"
