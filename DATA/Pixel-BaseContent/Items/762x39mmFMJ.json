@@ -1,0 +1,25 @@
+{
+    "Data" : {
+        "id" : "762x39mmFMJ",
+        "Type" : "Bullet",
+        "Value" : 2,
+        "Weight" : 1,
+        "Penetration" : 20,
+        "Damage" : 20
+    },
+    "Locales" :
+    {
+        "En" :
+        {
+            "Name" : "7.62x39mm PS gzh",
+            "Shortname" : "PS.",
+            "Description" : "A 7.62x39mm PS gzh (GAU Index - 57-N-231) cartridge with a 7.9 gram bullet with a heat-strengthened steel core with lead cladding on the tip and a bimetallic jacket, in a bimetallic case."
+        },
+        "Ro" :
+        {
+            "Name" : "Test gun",
+            "Shortname" : "Tst. Gn.",
+            "Description" : "This is a gun for testing the server's and the client's language features"
+        }
+    }
+}

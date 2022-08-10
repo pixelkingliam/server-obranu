@@ -6,21 +6,21 @@
         "stashlevel" : 1,
         "items" : [
             {
-                "id" : "Gun",
+                "id" : "VaschenBAR57",
                 "Slots" : {
                     "Magazine" : {
                         "id" : "Magazine",
                         "LoadAmmo" : {
                             "0" : {
-                                "id" : "BulletHP",
+                                "id" : "762x39mmHP",
                                 "Count" : 10
                             },
                             "1" : {
-                                "id" : "BulletAP",
+                                "id" : "762x39mmAP",
                                 "Count" : 10
                             },
                             "2" : {
-                                "id" : "BulletFMJ",
+                                "id" : "762x39mmFMJ",
                                 "Count" : 10
                             }
                         }
@@ -28,14 +28,14 @@
                 }
             },
             {
-                "id" : "BulletFMJ",
+                "id" : "762x39mmFMJ",
                 "Count" : 120
             },
             {
                 "id" : "Magazine",
                 "LoadAmmo" : {
                     "0" : {
-                        "id" : "BulletHP",
+                        "id" : "762x39mmHP",
                         "Count" : 30
                     }
                 }
@@ -44,7 +44,7 @@
                 "id" : "Magazine",
                 "LoadAmmo" : {
                     "0" : {
-                        "id" : "BulletAP",
+                        "id" : "762x39mmAP",
                         "Count" : 30
                     }
                 }
@@ -53,7 +53,7 @@
                 "id" : "Magazine",
                 "LoadAmmo" : {
                     "0" : {
-                        "id" : "BulletFMJ",
+                        "id" : "762x39mmFMJ",
                         "Count" : 30
                     }
                 }

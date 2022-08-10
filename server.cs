@@ -13,6 +13,24 @@ using System.Text.RegularExpressions;
 public class Launch 
 {
     public static double Time = ((Convert.ToDouble(DateTimeOffset.Now.ToUnixTimeMilliseconds())+5) / (1000));
+    public static void CheckData()
+    {
+        if (!Directory.Exists(@"DATA"))
+            {
+                Logger.Error("Data Folder does not exist!");
+                Logger.Warning("A blank Data folder will be created but the server will not have any content and new accounts will not be able to be made!");
+                Directory.CreateDirectory(@"DATA");
+            }
+    }
+    public static void CheckConf()
+    { 
+        if (!Directory.Exists(@"CONF"))
+            {
+                Logger.Error("Configuration Folder does not exist!");
+                Console.Read();
+                Environment.Exit(1);
+            }
+    }
 }
 public class Hash
 {
@@ -187,7 +205,7 @@ public class Connect
             (Hash.HashString(password) == (string)jsonaccounts.SelectToken(username + ".password"))
         )
         {
-            Logger.Success("Test Passed for existing");
+        //    Logger.Success("Test Passed for existing");
         }else
         {
             Logger.Warning("Client failed to login");
@@ -285,6 +303,8 @@ class Server
     public static void Main(string[] args)
     { 
         try {
+            Launch.CheckConf();
+            Launch.CheckData();
             JObject jsonserverconf = JObject.Parse(System.IO.File.ReadAllText(@"CONF/server.json"));
             string ip = (string)jsonserverconf.SelectToken("server-configs.ip");
             ushort port = (ushort)jsonserverconf.SelectToken("server-configs.port");

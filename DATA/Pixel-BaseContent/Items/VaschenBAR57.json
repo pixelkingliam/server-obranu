@@ -1,6 +1,6 @@
 {
     "Data" : {
-        "id" : "Gun",
+        "id" : "VaschenBAR57",
         "Value" : 2000,
         "Type" : "RWeapon",
         "SupportedAmmo" : [
@@ -41,19 +41,15 @@
     {
         "En" :
         {
-            "Gun" : {
-                "Name" : "Test gun",
-                "Shortname" : "Tst. Gn.",
-                "Description" : "This is a gun for testing the server's caching functions"
-            }
+            "Name" : "Vaschen BAR-57 7.62x39mm Bullpup Rifle",
+            "Shortname" : "BAR-57",
+            "Description" : "The Vaschen BAR-57 is a bullpup assault rifle chambered for the 7.62x39mm cartridge, it feeds from standard Vaschen 7.62x39mm magazines, due to the layout of the rifle it does not accept drum magazines. Customizability-wise it sports a Promount handguard allowing Promount rails to be attached in order to attach grips and the likes, on the top of the receiver a standard Picatiny rail can be found for attaching sights, by default it has foldable iron sights."
         },
         "Ro" :
         {
-            "Gun" : {
-                "Name" : "Test gun",
-                "Shortname" : "Tst. Gn.",
-                "Description" : "This is a gun for testing the server's and the client's language features"
-            }
+            "Name" : "Test gun",
+            "Shortname" : "Tst. Gn.",
+            "Description" : "This is a gun for testing the server's and the client's language features"
         }
     },
     "Assets" : 

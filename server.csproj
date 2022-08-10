@@ -1,0 +1,9 @@
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <ItemGroup>
+      <Compile Include="server.cs"/>
+      <Reference Include="Newtonsoft.Json.dll"/>
+    </ItemGroup>
+    <Target Name="Build">
+      <Csc References="@(Reference)" Sources="@(Compile)"/>  
+    </Target>
+  </Project>

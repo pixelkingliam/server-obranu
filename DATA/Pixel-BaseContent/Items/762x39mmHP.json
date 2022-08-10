@@ -1,0 +1,25 @@
+{
+    "Data" : {
+        "id" : "762x39mmHP",
+        "Type" : "Bullet",
+        "Value" : 3,
+        "Weight" : 1,
+        "Penetration" : 15,
+        "Damage" : 30
+    },
+    "Locales" :
+    {
+        "En" :
+        {
+            "Name" : "7.62x39mm Hollow-Point",
+            "Shortname" : "HP.",
+            "Description" : "A 7.62x39mm cartridge with an 8 gram lead core hollow-point (HP) bullet with a bimetallic semi-jacket in a steel case; intended for hunting, home defense, and target practice."
+        },
+        "Ro" :
+        {
+            "Name" : "Test gun",
+            "Shortname" : "Tst. Gn.",
+            "Description" : "This is a gun for testing the server's and the client's language features"
+        }
+    }
+}
