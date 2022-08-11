@@ -1,0 +1,5 @@
+server.exe
+TEMP/
+TEMP/*
+LOGS/
+LOGS/*

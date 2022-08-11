@@ -1,9 +1,13 @@
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
     <ItemGroup>
-      <Compile Include="server.cs"/>
+      <Compile Include="SRCS/server.cs"/>
+      <Compile Include="SRCS/RESP/accounts.cs"/>
+      <Compile Include="SRCS/logger.cs"/>
+      <Compile Include="SRCS/sohash.cs"/>
       <Reference Include="Newtonsoft.Json.dll"/>
+      <Reference Include="websocket-sharp.dll"/>
     </ItemGroup>
     <Target Name="Build">
-      <Csc References="@(Reference)" Sources="@(Compile)"/>  
+      <Csc References="@(Reference)" Sources="@(Compile)" OutputAssembly="server.exe"/>  
     </Target>
   </Project>
