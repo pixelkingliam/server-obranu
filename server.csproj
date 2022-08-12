@@ -4,6 +4,7 @@
       <Compile Include="SRCS/RESP/accounts.cs"/>
       <Compile Include="SRCS/logger.cs"/>
       <Compile Include="SRCS/sohash.cs"/>
+      <Compile Include="SRCS/cache.cs"/>
       <Reference Include="Newtonsoft.Json.dll"/>
       <Reference Include="websocket-sharp.dll"/>
     </ItemGroup>

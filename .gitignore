@@ -1,5 +1,7 @@
-server.exe
+*.exe
 TEMP/
 TEMP/*
 LOGS/
 LOGS/*
+USER/
+USER/*
