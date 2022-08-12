@@ -1,4 +1,3 @@
-using Debug;
 using CCache;
 using System;
 using SOHash;
@@ -25,6 +24,21 @@ public class Launch
             Directory.CreateDirectory(@"DATA");
         }
     }
+    public static void CheckUser()
+    {
+        if (!Directory.Exists(@"USER"))
+        {
+            Log.Error("USER Folder does not exist!");
+            Log.Warning("A USER folder containing an accounts.json will be created ");
+            Directory.CreateDirectory(@"USER");
+        }
+        if (!File.Exists(@"USER/accounts.json"))
+        {
+            Log.Error("Data Folder does not exist!");
+            Log.Warning("A blank Data folder will be created but the server will not have any content and new accounts will not be able to be made!");
+            File.WriteAllText(@"USER/accounts.json", "{}");
+        }
+    }
     public static void CheckConf()
     {
         if (!Directory.Exists(@"CONF"))
@@ -44,6 +58,7 @@ class Server
         try
         {
             Launch.CheckConf();
+            Launch.CheckUser();
             Launch.CheckData();
             JObject jsonserverconf = JObject.Parse(System.IO.File.ReadAllText(@"CONF/server.json"));
             string ip = (string)jsonserverconf.SelectToken("server-configs.ip");
@@ -57,11 +72,10 @@ class Server
             Log.Info(@"/\ \L\ \ \ \L\ \ \ \//\ \L\.\_/\ \/\ \ \ \_\ \");
             Log.Info(@"\ \____/\ \_,__/\ \_\\ \__/.\_\ \_\ \_\ \____/");
             Log.Info(@" \/___/  \/___/  \/_/ \/__/\/_/\/_/\/_/\/___/ ");
-            var wssv = new WebSocketServer (System.Net.IPAddress.Any, port);
+            var wssv = new WebSocketServer(System.Net.IPAddress.Any, port);
             wssv.AddWebSocketService<CreateAccount>("/crtacc");
             wssv.AddWebSocketService<Login>("/login");
             wssv.AddWebSocketService<VerifyAccount>("/verify");
-            //ws.Log.Output = (data, s) => { Debug.WriteLine(data); };
             wssv.Start();
             Log.Success("Server is  running on " + ip + ":" + port);
             Console.ReadKey(true);
