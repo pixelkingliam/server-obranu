@@ -61,7 +61,6 @@ namespace CCache
             JArray profilesarray = new JArray();
             foreach (string item2 in datalist)
             {
-                Log.Info(item2);
                 profilesarray.Add(item2);
                 JObject jsonmod = JObject.Parse(System.IO.File.ReadAllText(item + "/Profiles/" + item2 + ".json"));
                 jsonprofiles[item2] = jsonmod;

@@ -34,8 +34,8 @@ public class Launch
         }
         if (!File.Exists(@"USER/accounts.json"))
         {
-            Log.Error("Data Folder does not exist!");
-            Log.Warning("A blank Data folder will be created but the server will not have any content and new accounts will not be able to be made!");
+            Log.Error("accounts.json File does not exist!");
+            Log.Warning("USER/ Folder is lacking a accounts.json, a new one will be made");
             File.WriteAllText(@"USER/accounts.json", "{}");
         }
     }
@@ -57,13 +57,14 @@ class Server
 
         try
         {
+            JObject jsonserverconf = JObject.Parse(System.IO.File.ReadAllText(@"CONF/server.json"));
+            Log.Clean((int)jsonserverconf.SelectToken("server-configs.logcount"));
+
             Launch.CheckConf();
             Launch.CheckUser();
             Launch.CheckData();
-            JObject jsonserverconf = JObject.Parse(System.IO.File.ReadAllText(@"CONF/server.json"));
             string ip = (string)jsonserverconf.SelectToken("server-configs.ip");
             ushort port = (ushort)jsonserverconf.SelectToken("server-configs.port");
-            Log.Clean((int)jsonserverconf.SelectToken("server-configs.logcount"));
             Cache.Clean();
             Cache.LoadMods();
             Log.Info(@"     /\ \                                     ");
