@@ -1,3 +1,4 @@
+using Config;
 using CCache;
 using System;
 using SOHash;
@@ -5,6 +6,7 @@ using Logger;
 using Accounts;
 using System.IO;
 using System.Net;
+using MiscResponses;
 using WebSocketSharp;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
@@ -57,14 +59,15 @@ class Server
 
         try
         {
-            JObject jsonserverconf = JObject.Parse(System.IO.File.ReadAllText(@"CONF/server.json"));
-            Log.Clean((int)jsonserverconf.SelectToken("server-configs.logcount"));
-
+            Conf.Check();
+            Conf.Init();
+            
+            Log.Clean(Conf.logcount);
+            Log.Info("Server Name: " + Conf.name);
+            Log.Info("Server Version: " + Conf.version);
             Launch.CheckConf();
             Launch.CheckUser();
             Launch.CheckData();
-            string ip = (string)jsonserverconf.SelectToken("server-configs.ip");
-            ushort port = (ushort)jsonserverconf.SelectToken("server-configs.port");
             Cache.Clean();
             Cache.LoadMods();
             Log.Info(@"     /\ \                                     ");
@@ -73,12 +76,13 @@ class Server
             Log.Info(@"/\ \L\ \ \ \L\ \ \ \//\ \L\.\_/\ \/\ \ \ \_\ \");
             Log.Info(@"\ \____/\ \_,__/\ \_\\ \__/.\_\ \_\ \_\ \____/");
             Log.Info(@" \/___/  \/___/  \/_/ \/__/\/_/\/_/\/_/\/___/ ");
-            var wssv = new WebSocketServer(System.Net.IPAddress.Any, port);
-            wssv.AddWebSocketService<CreateAccount>("/crtacc");
-            wssv.AddWebSocketService<Login>("/login");
-            wssv.AddWebSocketService<VerifyAccount>("/verify");
+            var wssv = new WebSocketServer(System.Net.IPAddress.Any, Conf.port);
+            wssv.AddWebSocketService<CreateAccount>("/accounts/crtacc");
+            wssv.AddWebSocketService<Login>("/accounts/login");
+            wssv.AddWebSocketService<VerifyAccount>("/accounts/verify");
+            wssv.AddWebSocketService<Ping>("/pong");
             wssv.Start();
-            Log.Success("Server is  running on " + ip + ":" + port);
+            Log.Success("Server is  running on " + Conf.ip + ":" + Conf.port);
             Console.ReadKey(true);
             Log.Info("Server is exiting");
             wssv.Stop();

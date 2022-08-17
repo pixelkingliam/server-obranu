@@ -39,8 +39,11 @@ namespace Accounts
             JObject jsonaccounts = JObject.Parse(System.IO.File.ReadAllText(@"USER/accounts.json"));
             JObject jsonprofile = JObject.Parse(System.IO.File.ReadAllText(@"TEMP/Profiles.json"));
             bool AccountExist = ((jsonaccounts.ToString().Contains("\"" + username + "\"")));
+            var jsonresponse = new JObject();
+            var jsonresults = new JObject();
             if (!AccountExist)
             {
+                
                 Account NewAccount = new Account();
                 NewAccount.username = username;
                 NewAccount.password = Hash.HashString(password);
@@ -54,17 +57,22 @@ namespace Accounts
                 JObject jsonstash = jsonprofile.SelectToken(profile + ".stash").ToObject<JObject>();
                 JObject jsongear = jsonprofile.SelectToken(profile + ".gear").ToObject<JObject>();
                 JObject jsontrading = jsonprofile.SelectToken(profile + ".trading").ToObject<JObject>();
+                // creates all the folders for the newly registered accounts with data from a profile preset
                 Directory.CreateDirectory(@"USER/" + username);
                 File.WriteAllText(@"USER/" + username + "/stash.json", jsonstash.ToString());
                 File.WriteAllText(@"USER/" + username + "/gear.json", jsongear.ToString());
                 File.WriteAllText(@"USER/" + username + "/trading.json", jsontrading.ToString());
                 Log.Success("Created profile data for " + username);
-
+                jsonresults["result"] = 0;
             }
             else
             {
+                jsonresults["result"] = 0;
                 Log.Warning(username + " Tried to make an existing account!");
             }
+            // this sends a response to the client with a variable which says if the operation requested was successful or with a variable that gives requested data
+            jsonresponse["result"] = jsonresults;
+            Send(jsonresponse.ToString());
         }
         protected override void OnError(WebSocketSharp.ErrorEventArgs e)
         {
@@ -84,22 +92,23 @@ namespace Accounts
             string password = (string)jsonpacket.SelectToken("connection.password");
 
             JObject jsonaccounts = JObject.Parse(System.IO.File.ReadAllText(@"USER/accounts.json"));
-
+            JObject jsonresponse = new JObject();
+            JObject jsonresults = new JObject();
             if ((username == (string)jsonaccounts.SelectToken(username + ".username")) & (Hash.HashString(password) == (string)jsonaccounts.SelectToken(username + ".password")))
             {
                 string pkey = Hash.HashString(Convert.ToString(rnd.Next()));
                 // private key is used for the game client so users dont have to give password/username all the time
                 pkeys.Add(pkey);
-                Log.Info(pkeys[0]);
-                Send("Successfully logged in!");
-                Send("This is your private key! : " + pkey);
+                jsonresults["key"] = pkey;
                 //    Log.Success("Test Passed for existing");
             }
             else
             {
+                jsonresults["key"] = "false";
                 Log.Warning("Client failed to login");
-                Send("Invalid Password/Username");
             }
+            jsonresponse["result"] = jsonresults;
+            Send(jsonresponse.ToString());
         }
         protected override void OnError(WebSocketSharp.ErrorEventArgs e)
         {
@@ -125,12 +134,17 @@ namespace Accounts
             catch { }
             JObject jsonpacket = JObject.Parse(msg);
             string key = (string)jsonpacket.SelectToken("connection.key");
+            var jsonresponse = new JObject();
+            var jsonresults = new JObject();
+            
             if (Login.pkeys.Contains(key)){
-                Send("Valid Key!");
+                jsonresults["result"] = 0;
             }else
             {
-                Send("InvalidKey");
+                jsonresults["result"] = 1;
             }
+            jsonresponse["result"] = jsonresults;
+            Send(jsonresponse.ToString());
         }
         protected override void OnError(WebSocketSharp.ErrorEventArgs e)
         {
