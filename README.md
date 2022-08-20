@@ -14,7 +14,7 @@ Making accounts via a basic WebSocket Client
 * **SRCS/**  Contains all the source files
 * *USER/* this is where the Accounts.json file and user profiles are stored
 * DATA/ equivalent of user/mods and db/ on JET/AE this is where all the item's information and the likes are stored, all of the valid mods are compiled into the respective files in TEMP/
-* CONF/ Contains configuration files for the server, currently only contains server.json which has settings for ip, port and log count,
+* *CONF/* Contains configuration files for the server, currently only contains server.json which has settings for ip, port and log count,
 * ~~LIBS/~~ Wanted to implement a folder where all .dll files would be stored like Newtonsoft.Json.dll but i could never get both CSC and the compiled executable to recognize the folder
 
 folders in  *italics* dont need to present for the server to work as the server will automaticly generate them
