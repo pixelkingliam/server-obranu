@@ -63,6 +63,7 @@ class Server
             Conf.Init();
             
             Log.Clean(Conf.logcount);
+            Console.Title = Conf.name;
             Log.Info("Server Name: " + Conf.name);
             Log.Info("Server Version: " + Conf.version);
             Launch.CheckConf();
