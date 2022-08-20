@@ -5,3 +5,8 @@ LOGS/
 LOGS/*
 USER/
 USER/*
+CONF/
+CONF/*
+*.zip
+*.7z
+*.tar.*

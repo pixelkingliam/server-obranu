@@ -27,7 +27,6 @@ namespace Config
             {
                 try {
                     JObject.Parse(System.IO.File.ReadAllText(@"CONF/server.json"));
-                    Console.WriteLine("test");
                     
                 }
                 catch (JsonException ex) //some other exception
@@ -37,18 +36,18 @@ namespace Config
                     }
                 var jsonserverconf = JObject.Parse(System.IO.File.ReadAllText(@"CONF/server.json"));
                 if (
-                        jsonserverconf.ContainsKey("server-configs.ip") &&
-                        jsonserverconf.ContainsKey("server-configs.sport") &&
-                        jsonserverconf.ContainsKey("server-configs.logcount") &&
-                        jsonserverconf.ContainsKey("server-info.version") &&
-                        jsonserverconf.ContainsKey("server-info.name")
+                    // i have no idea how adding the ! operator to all the checks makes this work properly, time to never touch it again!
+                        !jsonserverconf.ContainsKey("server-configs.ip") &
+                        !jsonserverconf.ContainsKey("server-configs.sport") &
+                        !jsonserverconf.ContainsKey("server-configs.logcount") &
+                        !jsonserverconf.ContainsKey("server-info.version") &
+                        !jsonserverconf.ContainsKey("server-info.name")
                         
                     )
                     {}else
                     {
                         File.Delete(@"CONF/server.json");
                         Create();
-                        Console.WriteLine("done");
                     }
             }
         }
@@ -57,7 +56,6 @@ namespace Config
             var jsonserverconf = new JObject();
             var serverconfigs = new JObject();
             var serverinfo = new JObject();
-            Console.WriteLine("create");
             serverconfigs["ip"] = ip;
             serverconfigs["port"] = port;
             serverconfigs["logcount"] = logcount;
@@ -72,7 +70,6 @@ namespace Config
         public static void Init()
         {
             JObject jsonserverconf = JObject.Parse(System.IO.File.ReadAllText("CONF/server.json"));
-            Console.WriteLine("init");
             ip = (string)jsonserverconf.SelectToken("server-configs.ip");
             port = (ushort)jsonserverconf.SelectToken("server-configs.port");
             logcount = (int)jsonserverconf.SelectToken("server-configs.logcount");

@@ -11,6 +11,10 @@ using System.Security.Cryptography;
 
 namespace Accounts
 {
+    public class PrivateKey
+    {
+        public string Accountname = null;
+    }
 
     public class Account
     {
@@ -83,7 +87,8 @@ namespace Accounts
     public class Login : WebSocketBehavior
     {
         Random rnd = new Random();
-        static public List<string> pkeys = new List<string>();
+        //static public List<string> pkeys = new List<string>();
+        public static IDictionary<string, string> pkeys = new Dictionary<string, string>();
         protected override void OnMessage(MessageEventArgs e)
         {
             JObject jsonpacket = JObject.Parse(e.Data);
@@ -98,7 +103,7 @@ namespace Accounts
             {
                 string pkey = Hash.HashString(Convert.ToString(rnd.Next()));
                 // private key is used for the game client so users dont have to give password/username all the time
-                pkeys.Add(pkey);
+                pkeys.Add(pkey, username);
                 jsonresults["key"] = pkey;
                 //    Log.Success("Test Passed for existing");
             }
@@ -137,7 +142,7 @@ namespace Accounts
             var jsonresponse = new JObject();
             var jsonresults = new JObject();
             
-            if (Login.pkeys.Contains(key)){
+            if (Login.pkeys.ContainsKey(key)){
                 jsonresults["result"] = 0;
             }else
             {
