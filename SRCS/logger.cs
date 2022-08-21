@@ -59,6 +59,7 @@ namespace Logger
         }
         public static void Clean(int count)
         {
+            //make logs folder if it does not exists
             if (!Directory.Exists(@"LOGS"))
             {
                 Directory.CreateDirectory(@"LOGS");
@@ -67,8 +68,10 @@ namespace Logger
             List<int> UpdatedList = new List<int>(); ;
             if (FileList.Length > count - 1)
             {
+                //get all the log filenames, remove the .log at the end and make them into an int, then add it to the UpdatedList[] list
                 foreach (var file in FileList)
                 {
+                    
                     string tmp = file;
                     tmp = tmp.Substring(0, tmp.Length - 4);
                     tmp = tmp.Remove(0, 5);
@@ -76,10 +79,12 @@ namespace Logger
                 }
             }
 
-
+            //delete extra log files, this is usually only 1
             UpdatedList.Sort();
+            // repeat until log count is to desired amount
             while (UpdatedList.Count > count - 1)
             {
+                // delete the oldest log
                 File.Delete(@"LOGS/" + UpdatedList[0] + ".log");
                 UpdatedList.RemoveAt(0);
             }

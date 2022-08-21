@@ -24,7 +24,7 @@ namespace Config
             {
                 Create();
             }else
-            {
+            {   //check if the file is valid JSON, if it is then check if the file contains all the proper values , if those checks fail the existing file will be deleted and a new one will be made
                 try {
                     JObject.Parse(System.IO.File.ReadAllText(@"CONF/server.json"));
                     
