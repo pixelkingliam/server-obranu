@@ -10,7 +10,7 @@ namespace Logger
         {
             string tolog = "[" + Math.Round((((Convert.ToDouble(DateTimeOffset.Now.ToUnixTimeMilliseconds())) / (1000)) - Launch.Time), 2) + "s" + "]-[SUCCESS]-" + ToBeLogged;
             File.AppendAllText(fn, tolog + Environment.NewLine);
-            Console.BackgroundColor = ConsoleColor.Green;
+            Console.BackgroundColor = ConsoleColor.DarkGreen;
             Console.Write("[SUCCESS]");
             Console.ResetColor();
             Console.Write("[" + Math.Round((((Convert.ToDouble(DateTimeOffset.Now.ToUnixTimeMilliseconds())) / (1000)) - Launch.Time), 2) + "s" + "]");
@@ -21,7 +21,7 @@ namespace Logger
         {
             string tolog = "[" + Math.Round((((Convert.ToDouble(DateTimeOffset.Now.ToUnixTimeMilliseconds())) / (1000)) - Launch.Time), 2) + "s" + "]-[INFO]-" + ToBeLogged;
             File.AppendAllText(fn, tolog + Environment.NewLine);
-            Console.BackgroundColor = ConsoleColor.Cyan;
+            Console.BackgroundColor = ConsoleColor.DarkCyan;
             Console.Write("[INFO]");
             Console.ResetColor();
             Console.Write("[" + Math.Round((((Convert.ToDouble(DateTimeOffset.Now.ToUnixTimeMilliseconds())) / (1000)) - Launch.Time), 2) + "s" + "]");
@@ -31,7 +31,7 @@ namespace Logger
         {
             string tolog = "[" + Math.Round((((Convert.ToDouble(DateTimeOffset.Now.ToUnixTimeMilliseconds())) / (1000)) - Launch.Time), 2) + "s" + "]-[WARNING]-" + ToBeLogged;
             File.AppendAllText(fn, tolog + Environment.NewLine);
-            Console.BackgroundColor = ConsoleColor.Yellow;
+            Console.BackgroundColor = ConsoleColor.DarkYellow;
             Console.Write("[WARNING]");
             Console.ResetColor();
             Console.Write("[" + Math.Round((((Convert.ToDouble(DateTimeOffset.Now.ToUnixTimeMilliseconds())) / (1000)) - Launch.Time), 2) + "s" + "]");
@@ -41,7 +41,7 @@ namespace Logger
         {
             string tolog = "[" + Math.Round((((Convert.ToDouble(DateTimeOffset.Now.ToUnixTimeMilliseconds())) / (1000)) - Launch.Time), 2) + "s" + "]-[ERROR]-" + ToBeLogged;
             File.AppendAllText(fn, tolog + Environment.NewLine);
-            Console.BackgroundColor = ConsoleColor.Red;
+            Console.BackgroundColor = ConsoleColor.DarkRed;
             Console.Write("[ERROR]");
             Console.ResetColor();
             Console.Write("[" + Math.Round((((Convert.ToDouble(DateTimeOffset.Now.ToUnixTimeMilliseconds())) / (1000)) - Launch.Time), 2) + "s" + "]");
