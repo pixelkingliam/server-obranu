@@ -139,19 +139,22 @@ namespace Accounts
     }
     public class Login : WebSocketBehavior
     {
+        public static List<Account> LoadedAccs;
         Random rnd = new Random();
         //static public List<string> pkeys = new List<string>();
         public static IDictionary<string, string> pkeys = new Dictionary<string, string>();
         protected override void OnMessage(MessageEventArgs e)
         {
-            JObject jsonpacket = JObject.Parse(e.Data);
-
+            var msg = e.Data;
+            //JObject jsonpacket = JObject.Parse(e.Data);
+            JObject jsonpacket = JObject.Parse(msg);
             string username = (string)jsonpacket.SelectToken("connection.username");
             string password = (string)jsonpacket.SelectToken("connection.password");
 
             JObject jsonaccounts = JObject.Parse(System.IO.File.ReadAllText(@"USER/accounts.json"));
             JObject jsonresponse = new JObject();
             JObject jsonresults = new JObject();
+
             if ((username == (string)jsonaccounts.SelectToken(username + ".username")) & (Hash.HashString(password) == (string)jsonaccounts.SelectToken(username + ".password")))
             {
                 string pkey = Hash.HashString(Convert.ToString(rnd.Next()));
