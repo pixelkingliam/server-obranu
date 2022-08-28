@@ -1,7 +1,9 @@
+using Config;
 using Logger;
 using System;
 using SOHash;
 using System.IO;
+using System.Linq;
 using WebSocketSharp;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
@@ -45,7 +47,54 @@ namespace Accounts
             bool AccountExist = ((jsonaccounts.ToString().Contains("\"" + username + "\"")));
             var jsonresponse = new JObject();
             var jsonresults = new JObject();
-            if (!AccountExist)
+            bool issafe;
+            // i'll be stacking if statements here just to make the logic a tad bit easier to read
+            // This config option decides if the server will verify compatibility with windows file/folder name
+            if (!Conf.allowillegalfilepath)
+            {
+                if ( // check if the username contains a forbidden character
+                    !username.ToLower().Contains("<") &
+                    !username.ToLower().Contains(">") &
+                    !username.ToLower().Contains(":") &
+                    !username.ToLower().Contains("/") &
+                    !username.ToLower().Contains("\\") &
+                    !username.ToLower().Contains("|") &
+                    !username.ToLower().Contains("?") &
+                    !username.ToLower().Contains("*") 
+                    
+                )
+                {
+                    string[] forbiddenwords = {"CON","PRN","AUX","NUL","COM1","COM2","COM3","COM4","COM5","COM6","COM7","COM8","COM9","LPT1","LPT2","LPT3","LPT4","LPT5","LPT6","LPT7","LPT8","LPT9"};
+                    if ( // check if the username contains forbidden file/folder name
+                        !forbiddenwords.Contains(username)
+                    )
+                    {
+                        if (!username.EndsWith(" ") & !username.EndsWith(".")) // Windows doesn't like it when filename ends with these
+                        {
+                            issafe = true;
+                        }else
+                        {
+                            issafe = false;
+                        }
+                    }else
+                    {
+                        issafe = false;
+                    }
+                }else
+                {
+                    issafe = false;
+                }
+            }else
+            {
+                if (!username.ToLower().Contains("/"))
+                {
+                issafe = true;
+                }else
+                {
+                    issafe = false;
+                }
+            }
+            if (!AccountExist & issafe)
             {
                 
                 Account NewAccount = new Account();
@@ -69,9 +118,13 @@ namespace Accounts
                 Log.Success("Created profile data for " + username);
                 jsonresults["result"] = 0;
             }
-            else
+            else if (!issafe)
             {
-                jsonresults["result"] = 0;
+                jsonresults["result"] = 2;
+                Log.Warning(username + "Tried to make an account with illegal characters!");
+            }else if (issafe)
+            {
+                jsonresults["result"] = 1;
                 Log.Warning(username + " Tried to make an existing account!");
             }
             // this sends a response to the client with a variable which says if the operation requested was successful or with a variable that gives requested data

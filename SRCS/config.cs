@@ -10,6 +10,7 @@ namespace Config
         public static string ip = "127.0.0.1";
         public static ushort port = 1337;
         public static int logcount = 3;
+        public static bool allowillegalfilepath = false;
         //-==-
         public static string version = "Obranu Dev Build";
         public static string name = "Obranu Server";
@@ -40,8 +41,10 @@ namespace Config
                         !jsonserverconf.ContainsKey("server-configs.ip") &
                         !jsonserverconf.ContainsKey("server-configs.sport") &
                         !jsonserverconf.ContainsKey("server-configs.logcount") &
+                        !jsonserverconf.ContainsKey("server-configs.allowillegalfilepath") &
                         !jsonserverconf.ContainsKey("server-info.version") &
-                        !jsonserverconf.ContainsKey("server-info.name")
+                        !jsonserverconf.ContainsKey("server-info.name")  
+                        
                         
                     )
                     {}else
@@ -59,6 +62,7 @@ namespace Config
             serverconfigs["ip"] = ip;
             serverconfigs["port"] = port;
             serverconfigs["logcount"] = logcount;
+            serverconfigs["allowillegalfilepath"] = allowillegalfilepath;
             
             serverinfo["version"] = version;
             serverinfo["name"] = name;
@@ -73,7 +77,8 @@ namespace Config
             ip = (string)jsonserverconf.SelectToken("server-configs.ip");
             port = (ushort)jsonserverconf.SelectToken("server-configs.port");
             logcount = (int)jsonserverconf.SelectToken("server-configs.logcount");
-
+            allowillegalfilepath = (bool)jsonserverconf.SelectToken("server-configs.allowillegalfilepath");
+            
             version = (string)jsonserverconf.SelectToken("server-info.version");
             name = (string)jsonserverconf.SelectToken("server-info.name");
         }
