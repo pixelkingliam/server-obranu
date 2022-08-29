@@ -38,7 +38,7 @@ public class Launch
         {
             Log.Error("accounts.json File does not exist!");
             Log.Warning("USER/ Folder is lacking a accounts.json, a new one will be made");
-            File.WriteAllText(@"USER/accounts.json", "{}");
+            File.WriteAllText(@"USER/accounts.json", "[]");
         }
     }
     public static void CheckConf()

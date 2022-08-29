@@ -20,8 +20,8 @@ namespace Accounts
 
     public class Account
     {
-        public string username = null;
-        public string password = null;
+        public string username;
+        public string password;
     }
     public class CreateAccount : WebSocketBehavior
     {
@@ -42,7 +42,7 @@ namespace Accounts
             string username = (string)jsonpacket.SelectToken("connection.username");
             string password = (string)jsonpacket.SelectToken("connection.password");
             string profile = (string)jsonpacket.SelectToken("connection.profile");
-            JObject jsonaccounts = JObject.Parse(System.IO.File.ReadAllText(@"USER/accounts.json"));
+            JArray jsonaccounts = JArray.Parse(System.IO.File.ReadAllText(@"USER/accounts.json"));
             JObject jsonprofile = JObject.Parse(System.IO.File.ReadAllText(@"TEMP/Profiles.json"));
             bool AccountExist = ((jsonaccounts.ToString().Contains("\"" + username + "\"")));
             var jsonresponse = new JObject();
@@ -104,7 +104,7 @@ namespace Accounts
 
                 JObject NewaccJson = (JObject)JToken.FromObject(NewAccount);
 
-                jsonaccounts[username] = new JObject { ["username"] = NewAccount.username, ["password"] = NewAccount.password };
+                jsonaccounts.Add(new JObject { ["username"] = NewAccount.username, ["password"] = NewAccount.password });
 
                 File.WriteAllText(@"USER/accounts.json", jsonaccounts.ToString());
                 JObject jsonstash = jsonprofile.SelectToken(profile + ".stash").ToObject<JObject>();
@@ -150,12 +150,27 @@ namespace Accounts
             JObject jsonpacket = JObject.Parse(msg);
             string username = (string)jsonpacket.SelectToken("connection.username");
             string password = (string)jsonpacket.SelectToken("connection.password");
-
-            JObject jsonaccounts = JObject.Parse(System.IO.File.ReadAllText(@"USER/accounts.json"));
+            LoadedAccs = new List<Account>();
+            JArray jsonaccounts = JArray.Parse(System.IO.File.ReadAllText(@"USER/accounts.json"));
             JObject jsonresponse = new JObject();
             JObject jsonresults = new JObject();
-
-            if ((username == (string)jsonaccounts.SelectToken(username + ".username")) & (Hash.HashString(password) == (string)jsonaccounts.SelectToken(username + ".password")))
+            //Log.Info
+            foreach (var item in jsonaccounts)
+            {
+                LoadedAccs.Add(new Account{ username = item["username"].ToString(), password = item["password"].ToString() });
+            }
+            int index = 0;
+            foreach (var item in LoadedAccs)
+            {
+                if (item.username == username)
+                {
+                    break;
+                }else
+                {
+                    index++;
+                }
+            }
+        if ((Hash.HashString(password) == LoadedAccs[index].password))
             {
                 string pkey = Hash.HashString(Convert.ToString(rnd.Next()));
                 // private key is used for the game client so users dont have to give password/username all the time
