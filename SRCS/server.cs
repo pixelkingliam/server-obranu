@@ -1,3 +1,4 @@
+using Game;
 using Config;
 using CCache;
 using System;
@@ -82,6 +83,8 @@ class Server
             wssv.AddWebSocketService<Login>("/accounts/login");
             wssv.AddWebSocketService<VerifyAccount>("/accounts/verify");
             wssv.AddWebSocketService<Ping>("/pong");
+            wssv.AddWebSocketService<GameCache>("/game/cache");
+            wssv.AddWebSocketService<GameInv>("/game/inv");
             wssv.Start();
             Log.Success("Server is  running on " + Conf.ip + ":" + Conf.port);
             Console.ReadKey(true);

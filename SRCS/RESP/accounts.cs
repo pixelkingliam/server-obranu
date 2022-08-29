@@ -27,7 +27,7 @@ namespace Accounts
     {
         protected override void OnOpen()
         {
-            Send(System.IO.File.ReadAllText(@"TEMP/ProfilesList.json"));
+            Send(File.ReadAllText(@"TEMP/ProfilesList.json"));
         }
 
         protected override void OnMessage(MessageEventArgs e)
@@ -42,8 +42,8 @@ namespace Accounts
             string username = (string)jsonpacket.SelectToken("connection.username");
             string password = (string)jsonpacket.SelectToken("connection.password");
             string profile = (string)jsonpacket.SelectToken("connection.profile");
-            JArray jsonaccounts = JArray.Parse(System.IO.File.ReadAllText(@"USER/accounts.json"));
-            JObject jsonprofile = JObject.Parse(System.IO.File.ReadAllText(@"TEMP/Profiles.json"));
+            JArray jsonaccounts = JArray.Parse(File.ReadAllText(@"USER/accounts.json"));
+            JObject jsonprofile = JObject.Parse(File.ReadAllText(@"TEMP/Profiles.json"));
             bool AccountExist = ((jsonaccounts.ToString().Contains("\"" + username + "\"")));
             var jsonresponse = new JObject();
             var jsonresults = new JObject();

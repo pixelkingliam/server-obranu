@@ -1,12 +1,14 @@
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
     <ItemGroup>
       <Compile Include="SRCS/server.cs"/>
-      <Compile Include="SRCS/RESP/accounts.cs"/>
       <Compile Include="SRCS/logger.cs"/>
       <Compile Include="SRCS/sohash.cs"/>
       <Compile Include="SRCS/cache.cs"/>
+      <Compile Include="SRCS/config.cs"/>      
       <Compile Include="SRCS/RESP/misc.cs"/>
-      <Compile Include="SRCS/config.cs"/>
+      <Compile Include="SRCS/RESP/accounts.cs"/>
+      <Compile Include="SRCS/RESP/GAME/cache.cs"/>
+      <Compile Include="SRCS/RESP/GAME/inventory.cs"/>
       <Reference Include="Newtonsoft.Json.dll"/>
       <Reference Include="websocket-sharp.dll"/>
     </ItemGroup>
