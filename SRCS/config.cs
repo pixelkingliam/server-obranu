@@ -30,7 +30,7 @@ namespace Config
                     JObject.Parse(System.IO.File.ReadAllText(@"CONF/server.json"));
                     
                 }
-                catch (JsonException ex) //some other exception
+                catch (JsonException) //some other exception
                     {
                         File.Delete(@"CONF/server.json");
                         Create();

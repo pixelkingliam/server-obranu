@@ -38,11 +38,3 @@ folders in  *italics* dont need to present for the server to work as the server 
 a simple `$ mono server.exe` should suffice, on some ports like 80 you need to run it with root privileges
 
 running it like any other programs on windows 10/11 should also work
-
----
-
-#### Goals
-
-~~Currently im hoping for some sort of implementation of networking that allows the client and server to send eachoter .json files or just strings in a secure manner,~~ I fucking did it wooooooh
-
-sorry
