@@ -10,3 +10,4 @@ CONF/*
 *.zip
 *.7z
 *.tar.*
+*.todo
